@@ -8,7 +8,7 @@ A Line defines the side profile. Two Bend nodes shape and animate it, then Revol
 
 ## Veins
 
-TimeShift freezes the bell at frame 1. Remesh and Find Shortest Path create vein curves on this fixed surface. Ray records where each curve point lands on the frozen bell (`hitprim` and `hitprimuv`). Attribute Interpolate uses those locations on the current animated bell, so the veins follow its Bend deformation. Sweep gives the curves width.
+TimeShift freezes the bell at frame 1. Remesh and Find Shortest Path create vein curves on this fixed surface. I did the animation follow differently because point deform looks good when I changed the bell's transform only but If I change the bends it doesn't follow that well. So I alternatively uses Ray to record where each curve point lands on the frozen bell (`hitprim` and `hitprimuv`). Attribute Interpolate uses those locations on the current animated bell, so the veins follow its Bend deformation. Sweep gives the curves width.
 
 ## Arms
 
@@ -21,3 +21,7 @@ A resampled Line is bent into a U-shaped curve. Vellum hair and pin constraints 
 ## Hair
 
 A Line is copied to sampled points along the bell's lower rim. Vellum hair constraints let the strands sway while pin constraints hold their roots to the bell. PolyWire gives the simulated strands visible thickness.
+
+## Extra Credit: Scalloped Bell Edges and Puckering
+
+The Bell's Point Wrangle reads the rim and cap heights from the profile line connected to its second input. For each point, it uses the angle around the vertical axis to create a noisy sine wave that pushes the surface inward and outward. A height-based weight fades this displacement toward the top, so the scallops and puckering are strongest near the lower edge.
